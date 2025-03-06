@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% block main_content %}
+{% load static %}
+
+
+    <div class="info-container">
+        <!-- Text Content -->
+        <div class="text-content">
+            <!-- Quote -->
+            <div class="quote-container">
+                <p class="quote">"There is no problem that a library card can’t solve." - Eleanor Brown</p>
+            </div>
+
+            <!-- Welcome Message and Library Info -->
+            <div class="library-info">
+                <h1>Welcome to Computer Department Library</h1>
+                <p>This library serves as a valuable resource for students, faculty, and researchers in the computer department. We provide a wide range of books, journals, and resources to support your academic and research needs.</p>
+                <p>Our mission is to foster a culture of learning and intellectual growth by providing access to quality resources and services.</p>
+                <p><b>Please Navigate to other tabs for further actions></b></p>
+            </div>
+
+            <!-- Contact Details -->
+            <div class="contact-details">
+                <h3>Contact Us</h3>
+                <p>Email: library@example.com</p>
+            </div>
+        </div>
+
+        <!-- Copyright Message -->
+        <div class="copyright">
+            <p>&copy; 2024 Computer Department Library. All rights reserved.</p>
+        </div>
+    </div>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif, Tahoma, Geneva, Verdana;
+        background-color: #EBDEF0;
+        margin-left: ;
+        padding: 0;
+        color: #4A235A;
+    }
+
+    .main-container {
+        display: flex;
+
+        height: 100%; /* Ensure the container takes up full height */
+    }
+
+
+.info-container {
+    margin-up:200px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100vw; /* Set width to 100% of viewport width */
+    height: 75vh; /* Set height to 100% of viewport height */
+    position: relative;
+}
+
+  .info-container::before {
+    content: ""; /* Required for pseudo-elements */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("{% static 'pic2.jpg' %}");
+    background-size: cover; /* Adjust background size */
+    background-position: center; /* Center the background image */
+    opacity: 0.15; /* Set opacity for the background image */
+    z-index: -1; /* Ensure the pseudo-element is behind the content */
+}
+
+
+    .text-content {
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
+
+    .quote-container {
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .quote {
+        font-style: italic;
+        font-size: 25px;
+        text-align: left;
+        margin: 0;
+    }
+
+    .library-info {
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: left;
+        font-size: 22px;
+    }
+
+    .contact-details {
+        padding: -20px;
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .copyright {
+        text-align: left;
+        font-size: 12px;
+        color: #777;
+        margin-left:20px;
+    }
+
+   .contact-copyright {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+</style>
+{%endblock%}
