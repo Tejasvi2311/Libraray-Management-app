@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+{% block main_content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Book</title>
+    <style>
+        /* CSS styles */
+        body {
+            background-color: #EBDEF0;
+            font-family: Arial, sans-serif;
+            text-align: flex-center;  /* Center-align the content */
+            padding: px;  /* Add padding to the body */
+            color: #512E5F;
+        }
+        .container {
+            display: flex;  /* Use flexbox for layout */
+            justify-content: space-between;  /* Space items evenly across the container */
+            margin-bottom: 20px;  /* Add margin below the container */
+        }
+        .form-container{
+            flex-basis: 50%;
+            margin-top: 5px;
+            margin-left: 350px;
+        }
+        .table-container {
+            background-color: #FAF7FB;
+            flex-basis: 40%;  /* Set width for each container */
+            margin-top:40px;
+            margin-left: px;
+        }
+        form {
+            text-align: left;  /* Left-align the form elements */
+            padding: 20px;  /* Add padding to the form */
+            border: 1px solid #ccc;  /* Add border to the form */
+            border-radius: 5px;  /* Add border radius */
+            background-color: #f9f9f9;  /* Set background color */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Add box shadow */
+            margin-top: 35px;
+        }
+        label {
+            display: block;  /* Display labels as block elements */
+            margin-bottom: 10px;  /* Add margin below the labels */
+        }
+        input[type="text"] {
+            width: 100%;  /* Set input width to 100% */
+            padding: 10px;  /* Add padding to the inputs */
+            margin-bottom: 15px;  /* Add margin below the inputs */
+            border: 1px solid #ccc;  /* Add border to the inputs */
+            border-radius: 3px;  /* Add border radius */
+            box-sizing: border-box;  /* Include padding and border in the width */
+        }
+        button {
+            padding: 10px 20px;  /* Add padding to the button */
+            background-color: #007bff;  /* Set button background color */
+            color: #fff;  /* Set button text color */
+            border: none;  /* Remove button border */
+            border-radius: 3px;  /* Add border radius */
+            cursor: pointer;  /* Set cursor to pointer */
+        }
+        button:hover {
+            background-color: #0056b3;  /* Change background color on hover */
+        }
+        table {
+            width: 100%;  /* Set table width to 100% */
+            border-collapse: collapse;  /* Collapse the borders */
+        }
+        th, td {
+            border: 1px solid #ccc;  /* Add border to table cells */
+            padding: 10px;  /* Add padding to table cells */
+        }
+        h1 {
+            margin-top:20px;  /* Add margin below the heading */
+        }
+
+        /* Center align success and error messages */
+        .success-message {
+            text-align: center;
+            color: green;
+        }
+        .error-message {
+            text-align: center;
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-container">
+        <h1 style="text-align: center;">
+            <!-- Image at the beginning of the title -->
+            <img src="{% static 'book1.png' %}" alt="Image" style="height: 55px; width: 80px;">
+            Issue or Return Book
+            <!-- Image at the end of the title -->
+            <img src="{% static 'book1.png' %}" alt="Image" style="height: 55px;; width: 80px;">
+        </h1>
+            {% if success_message %}
+            <!-- Success message with center alignment and green color -->
+            <p class="success-message">{{ success_message }}</p>
+            {% endif %}
+            {% if error_message %}
+            <!-- Error message with center alignment and red color -->
+            <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="action">Select Action:</label>
+                <select id="action" name="action">
+                    <option value="issue">Issue</option>
+                    <option value="return">Return</option>
+                </select>
+                <br>
+                <label for="book_name">Book Name:</label>
+                <input type="text" id="book_name" name="book_name">
+                <br>
+                <label for="author_name">Author Name:</label>
+                <input type="text" id="author_name" name="author_name">
+                <br>
+                <label for="borrower_roll_no">Borrower's Roll No:</label>
+                <input type="text" id="borrower_roll_no" name="borrower_roll_no">
+                <br>
+                <button type="submit">Submit</button>
+
+            </form>
+        </div>
+
+    </div>
+        <div class="table-container">
+            <!-- Display issued books -->
+            <h3 style="text-align: center;">Issued Books Details</h3>
+            {% if issued_books %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Author Name</th>
+                        <th>Borrower's Roll No</th>
+                        <th>Issue Date</th>
+                        <th>Days Left to Return</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for issued_book in issued_books %}
+                    <tr>
+                        <td>{{ issued_book.book.book_name }}</td>
+                        <td>{{ issued_book.book.author_name }}</td>
+                        <td>{{ issued_book.borrower.username }}</td>
+                        <td>{{ issued_book.issue_date }}</td>
+                        <td>{{ issued_book.time_left_for_return }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No books issued.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
